@@ -4,8 +4,20 @@
   "description": "Control my tv",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon app.js --exec ./node_modules/babel-cli/bin/babel-node.js --presets node6"
   },
   "author": "Michaël Villeneuve",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-node6": "^11.0.0",
+    "express": "^4.15.2",
+    "node-fetch": "^1.6.3"
+  },
+  "devDependencies": {
+    "mocha": "^3.3.0",
+    "babel-preset-stage-3": "^6.24.1",
+    "eslint-config-rallycoding": "^3.2.0",
+    "nodemon": "^1.11.0"
+  }
 }
