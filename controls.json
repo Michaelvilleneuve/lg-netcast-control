@@ -1,0 +1,15 @@
+{
+  "off":         1,
+  "sound-plus":  24,
+  "sound-minus": 25,
+  "mute":        26,
+  "left":        14,
+  "right":       15,
+  "ok":          20,
+  "play":        33,
+  "pause":       33,
+  "ch-plus":     27,
+  "ch-minus":    28,
+  "back":        23,
+  "exit":        412
+}
