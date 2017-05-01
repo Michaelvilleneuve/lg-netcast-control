@@ -4,6 +4,8 @@ import controls from './controls.json';
 
 const API = {
   tv: 'http://192.168.1.10:8080/udap/api/',
+  code: 272905,
+  
   headers: {
     'User-Agent': 'Apple iOS UDAP/2.0 Connect SDK',
     'Content-Type': 'text/xml'
@@ -33,7 +35,7 @@ const API = {
   },
 
   finishPairing() {
-    const body = '<?xml version="1.0" encoding="utf-8"?> <envelope> <api type="pairing"> <name>hello</name> <value>272905</value> <port>8080</port> </api> </envelope>';
+    const body = `<?xml version="1.0" encoding="utf-8"?><envelope> <api type="pairing"> <name>hello</name><value>${this.code}</value> <port>8080</port> </api> </envelope>`;
     return fetch(`${this.tv}pairing`, {
       method: 'POST',
       headers: this.headers,
