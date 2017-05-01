@@ -11,5 +11,6 @@
   "ch-plus":     27,
   "ch-minus":    28,
   "back":        23,
+  "input":       47,
   "exit":        412
 }
