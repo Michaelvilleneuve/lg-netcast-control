@@ -7,7 +7,6 @@
     "no-underscore-dangle": 0,
   },
   "globals": {
-    "fetch": false,
     "alert": false,
     "FormData": false,
     "Headers": false,
