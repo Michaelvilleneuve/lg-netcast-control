@@ -16,17 +16,19 @@ const controls = {
   },
 
   changeInput(req, res) {
-    API.command('input');
+    API.command('exit');
     setTimeout(() => API.command('input'), 1500);
-    setTimeout(() => API.command('ok'), 3000);
+    setTimeout(() => API.command('input'), 3000);
+    setTimeout(() => API.command('ok'), 4300);
     res.sendStatus(200);
   },
 
   netflix(req, res) {
-    API.command('home');
-    setTimeout(() => API.command('right'), 4000);
-    setTimeout(() => API.command('bottom'), 5500);
-    setTimeout(() => API.command('ok'), 6500);
+    API.command('exit');
+    setTimeout(() => API.command('home'), 2500);
+    setTimeout(() => API.command('right'), 5000);
+    setTimeout(() => API.command('bottom'), 6500);
+    setTimeout(() => API.command('ok'), 8000);
     res.sendStatus(200);
   },
 
