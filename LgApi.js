@@ -16,7 +16,7 @@ const API = {
 
   command(name) {
     const body = `<?xml version="1.0" encoding="utf-8"?><envelope><api type="command"><name>HandleKeyInput</name><value>${controls[name]}</value></api></envelope>`;
-    return this.send(body, 'command')
+    return API.send(body, 'command')
     .then((res) => (res.status === 401) ? API.authenticate(this.command.bind(this, name)) : res.status);
   },
 
