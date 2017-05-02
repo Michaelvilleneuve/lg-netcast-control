@@ -49,7 +49,7 @@ Create custom action flows
 Add an express route, and see the "netflix" example.
 Basically, it's just about sending commands one after the other.
 
-`
+```javascript
 netflix(req, res) {
   API.command('home');
   setTimeout(() => API.command('right'), 4000);
@@ -57,4 +57,4 @@ netflix(req, res) {
   setTimeout(() => API.command('ok'), 6500);
   res.sendStatus(200);
 },
-`
+```
