@@ -30,19 +30,19 @@ const API = {
 
   pair() {
     const body = '<?xml version="1.0" encoding="utf-8"?> <envelope> <api type="pairing"> <name>showKey</name> </api> </envelope>';
-    return this.sendRequest(body, 'pairing').then(() => {
+    return API.sendRequest(body, 'pairing').then(() => {
       setTimeout(API.finishPairing, 1000);
     });
   },
 
   finishPairing() {
     const body = `<?xml version="1.0" encoding="utf-8"?><envelope> <api type="pairing"> <name>hello</name><value>${this.code}</value> <port>8080</port> </api> </envelope>`;
-    return this.sendRequest(body, 'pairing');
+    return API.sendRequest(body, 'pairing');
   },
 
   authenticate(callback) {
     const body = `<?xml version="1.0" encoding="utf-8"?> <envelope> <api type="pairing"> <name>hello</name> <value>${this.code}</value> <port>8080</port> </api> </envelope>`;
-    return this.sendRequest(body, 'pairing')
+    return API.sendRequest(body, 'pairing')
       .then((res) => {
         if (res.status === 200) {
           return callback();
