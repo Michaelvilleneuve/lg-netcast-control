@@ -1,11 +1,13 @@
 import fetch from 'node-fetch';
+import parse from 'xml-parser';
+import isReachable from 'is-reachable';
 import controls from './controls.json';
 /* eslint max-len: 0 */
 
 const API = {
   tv: 'http://192.168.1.10:8080/udap/api/',
   code: 272905,
-  
+
   headers: {
     'User-Agent': 'Apple iOS UDAP/2.0 Connect SDK',
     'Content-Type': 'text/xml'
@@ -13,49 +15,49 @@ const API = {
 
   command(name) {
     const body = `<?xml version="1.0" encoding="utf-8"?><envelope><api type="command"><name>HandleKeyInput</name><value>${controls[name]}</value></api></envelope>`;
-    return fetch(`${this.tv}command`, {
-      method: 'POST',
-      headers: this.headers,
-      body
+    return this.send(body, 'command')
+    .then((res) => (res.status === 401) ? API.authenticate(this.command.bind(this, name)) : res.status);
+  },
+
+  info(name) {
+    return fetch(`${this.tv}data?target=${name}`, {
+      headers: this.headers
     })
-    .then((res) => {
-      if (res.status === 401) return API.authenticate(this.command.bind(this, name));
-      return res.status;
-    });
+    .then((res) => res.text())
+    .then((xml) => parse(xml).root.children[0]);
   },
 
   pair() {
     const body = '<?xml version="1.0" encoding="utf-8"?> <envelope> <api type="pairing"> <name>showKey</name> </api> </envelope>';
-    return fetch(`${this.tv}pairing`, {
-      method: 'POST',
-      headers: this.headers,
-      body
-    })
-    .then(() => API.finishPairing());
+    return this.send(body, 'pairing').then(() => API.finishPairing());
   },
 
   finishPairing() {
     const body = `<?xml version="1.0" encoding="utf-8"?><envelope> <api type="pairing"> <name>hello</name><value>${this.code}</value> <port>8080</port> </api> </envelope>`;
-    return fetch(`${this.tv}pairing`, {
+    return this.send(body, 'pairing');
+  },
+
+  authenticate(callback) {
+    const body = `<?xml version="1.0" encoding="utf-8"?> <envelope> <api type="pairing"> <name>hello</name> <value>${this.code}</value> <port>8080</port> </api> </envelope>`;
+    return this.send(body, 'pairing')
+      .then((res) => {
+        if (res.status === 200) {
+          return callback();
+        }
+      });
+  },
+
+  send(body, path) {
+    return fetch(`${this.tv}${path}`, {
       method: 'POST',
       headers: this.headers,
       body
     });
   },
 
-  authenticate(callback) {
-    const body = '<?xml version="1.0" encoding="utf-8"?> <envelope> <api type="pairing"> <name>hello</name> <value>272905</value> <port>8080</port> </api> </envelope>';
-
-    return fetch(`${this.tv}command`, {
-      method: 'POST',
-      headers: this.headers,
-      body
-    })
-    .then((res) => {
-      if (res.status === 200) {
-        return callback();
-      }
-    });
+  isAlive() {
+    return isReachable(this.tv)
+      .then(reachable => reachable);
   }
 };
 
