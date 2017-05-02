@@ -2,11 +2,12 @@ import fetch from 'node-fetch';
 import parse from 'xml-parser';
 import isReachable from 'is-reachable';
 import controls from './controls.json';
+import config from './config.json';
 /* eslint max-len: 0 */
 
 const API = {
-  tv: 'http://192.168.1.10:8080/udap/api/',
-  code: 272905,
+  tv: `http://${config.ip}:8080/udap/api/`,
+  code: config.code,
 
   headers: {
     'User-Agent': 'Apple iOS UDAP/2.0 Connect SDK',
@@ -29,7 +30,9 @@ const API = {
 
   pair() {
     const body = '<?xml version="1.0" encoding="utf-8"?> <envelope> <api type="pairing"> <name>showKey</name> </api> </envelope>';
-    return this.send(body, 'pairing').then(() => API.finishPairing());
+    return this.send(body, 'pairing').then(() => {
+      setTimeout(API.finishPairing, 1000);
+    });
   },
 
   finishPairing() {
