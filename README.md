@@ -32,15 +32,15 @@ Examples :
 
 | Action  | Command |
 | ------------- | ------------- |
-| List actions  | `curl https://localhost:1234/commands/list`  |
-| Mute  | `curl -X POST https://localhost:1234/command/mute`  |
-| Turn off  | `curl -X POST https://localhost:1234/command/off`  |
-| Volume UP  | `curl -X POST https://localhost:1234/command/sound-plus`  |
-| Volume DOWN  | `curl -X POST https://localhost:1234/command/sound-minus`  |
-| Left  | `curl -X POST https://localhost:1234/command/left`  |
-| Right  | `curl -X POST https://localhost:1234/command/right`  |
+| List actions  | `curl http://localhost:1234/commands/list`  |
+| Mute  | `curl -X POST http://localhost:1234/command/mute`  |
+| Turn off  | `curl -X POST http://localhost:1234/command/off`  |
+| Volume UP  | `curl -X POST http://localhost:1234/command/sound-plus`  |
+| Volume DOWN  | `curl -X POST http://localhost:1234/command/sound-minus`  |
+| Left  | `curl -X POST http://localhost:1234/command/left`  |
+| Right  | `curl -X POST http://localhost:1234/command/right`  |
 
-Well you've got the idea. See `curl https://localhost:1234/commands/list` to get the list of actions.
+Well you've got the idea. See `curl http://localhost:1234/commands/list` to get the list of actions.
 
 
 Create custom action flows
@@ -48,6 +48,7 @@ Create custom action flows
 
 Add an express route, and see the "netflix" example.
 Basically, it's just about sending commands one after the other.
+
 `
 netflix(req, res) {
   API.command('home');
