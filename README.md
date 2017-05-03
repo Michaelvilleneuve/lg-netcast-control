@@ -17,13 +17,13 @@ Install
 
 Edit config.json and replace ip value with your TV IP address
 
-Then run
-`npm install`
+Run
+`npm install` and
 `npm start`
 
 When the pairing code appears on your TV, update config.json with the given value
 
-Then run `npm start` again and your good to go.
+Then run `npm start` again and you're good to go.
 
 Usage
 -----
