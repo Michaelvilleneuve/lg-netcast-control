@@ -17,7 +17,7 @@ const API = {
   command(name) {
     const body = `<?xml version="1.0" encoding="utf-8"?><envelope><api type="command"><name>HandleKeyInput</name><value>${controls[name]}</value></api></envelope>`;
     return API.sendRequest(body, 'command')
-    .then((res) => (res.status === 401) ? API.authenticate(this.command.bind(this, name)) : res.status);
+    .then((res) => (res.status === 401) ? API.authenticate(API.command.bind(this, name)) : res.status);
   },
 
   info(name) {
@@ -36,12 +36,12 @@ const API = {
   },
 
   finishPairing() {
-    const body = `<?xml version="1.0" encoding="utf-8"?><envelope> <api type="pairing"> <name>hello</name><value>${this.code}</value> <port>8080</port> </api> </envelope>`;
+    const body = `<?xml version="1.0" encoding="utf-8"?><envelope> <api type="pairing"> <name>hello</name><value>${API.code}</value> <port>8080</port> </api> </envelope>`;
     return API.sendRequest(body, 'pairing');
   },
 
   authenticate(callback) {
-    const body = `<?xml version="1.0" encoding="utf-8"?> <envelope> <api type="pairing"> <name>hello</name> <value>${this.code}</value> <port>8080</port> </api> </envelope>`;
+    const body = `<?xml version="1.0" encoding="utf-8"?> <envelope> <api type="pairing"> <name>hello</name> <value>${API.code}</value> <port>8080</port> </api> </envelope>`;
     return API.sendRequest(body, 'pairing')
       .then((res) => {
         if (res.status === 200) {
