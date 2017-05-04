@@ -23,6 +23,16 @@ const controls = {
     res.sendStatus(200);
   },
 
+  changeChannel(req, res) {
+    const numbers = req.params.channel.split('');
+    let time = 0;
+    numbers.forEach((n) => {
+      setTimeout(() => API.command(n), time);
+      time += 1500;
+    });
+    res.sendStatus(200);
+  },
+
   netflix(req, res) {
     API.command('exit');
     setTimeout(() => API.command('home'), 2500);
