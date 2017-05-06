@@ -8,9 +8,9 @@ const controls = {
       .catch(err => res.json(err));
   },
 
-  changeSound(req, res) {
+  changeSound(req, res, operator) {
     for (let i = 0; i < req.params.value; i++) {
-      setTimeout(() => API.command('sound-minus'), i * 400);
+      setTimeout(() => API.command(`sound-${operator}`), i * 500);
     }
     res.sendStatus(200);
   },
