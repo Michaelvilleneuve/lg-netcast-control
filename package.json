@@ -14,7 +14,7 @@
     "express": "^4.15.2",
     "is-online": "^7.0.0",
     "is-reachable": "^2.3.2",
-    "node-fetch": "^1.6.3",
+    "node-fetch": "^2.6.1",
     "xml-parser": "^1.2.1"
   },
   "devDependencies": {
